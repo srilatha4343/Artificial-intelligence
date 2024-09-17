@@ -1,0 +1,18 @@
+def water_jug_dfs(jug1_capacity, jug2_capacity, target, jug1=0, jug2=0, visited=None):
+    if visited is None:
+        visited = set()
+    if jug1 == target or jug2 == target:
+        print(f"Solved with jug1: {jug1}, jug2: {jug2}")
+        return True
+    if (jug1, jug2) in visited:
+        return False
+    visited.add((jug1, jug2))
+    return (
+        water_jug_dfs(jug1_capacity, jug2_capacity, target, jug1_capacity, jug2, visited) or
+        water_jug_dfs(jug1_capacity, jug2_capacity, target, jug1, jug2_capacity, visited) or
+        water_jug_dfs(jug1_capacity, jug2_capacity, target, 0, jug2, visited) or
+        water_jug_dfs(jug1_capacity, jug2_capacity, target, jug1, 0, visited) or
+        water_jug_dfs(jug1_capacity, jug2_capacity, target, max(0, jug1 - (jug2_capacity - jug2)), min(jug2_capacity, jug1 + jug2), visited) or
+        water_jug_dfs(jug1_capacity, jug2_capacity, target, min(jug1_capacity, jug1 + jug2), max(0, jug2 - (jug1_capacity - jug1)), visited)
+    )
+water_jug_dfs(4, 3, 2)  
