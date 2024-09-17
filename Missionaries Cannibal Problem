@@ -1,0 +1,36 @@
+from collections import deque
+def is_valid_state(M_left, C_left, M_right, C_right):
+    if (M_left > 0 and M_left < C_left) or (M_right > 0 and M_right < C_right):
+        return False
+    return True
+def missionaries_and_cannibals():
+    start_state = (3, 3, 0, 0, 0)  
+    queue = deque([(start_state, [])])
+    visited = set()
+    visited.add(start_state)
+    moves = [(2, 0), (0, 2), (1, 1), (1, 0), (0, 1)] 
+    while queue:
+        current_state, path = queue.popleft()
+        M_left, C_left, M_right, C_right, Boat_side = current_state
+        if M_left == 0 and C_left == 0:
+            return path + [current_state]
+        for move in moves:
+            M_move, C_move = move
+            if Boat_side == 0: 
+                new_state = (M_left - M_move, C_left - C_move, M_right + M_move, C_right + C_move, 1)
+            else:  
+                new_state = (M_left + M_move, C_left + C_move, M_right - M_move, C_right - C_move, 0)
+            M_left_new, C_left_new, M_right_new, C_right_new, _ = new_state
+            if (0 <= M_left_new <= 3 and 0 <= C_left_new <= 3 and 
+                0 <= M_right_new <= 3 and 0 <= C_right_new <= 3 and 
+                is_valid_state(M_left_new, C_left_new, M_right_new, C_right_new) and
+                new_state not in visited):
+                visited.add(new_state)
+                queue.append((new_state, path + [current_state]))
+    return None
+solution_path = missionaries_and_cannibals()
+if solution_path:
+    for step in solution_path:
+        print(step)
+else:
+    print("No solution found")
