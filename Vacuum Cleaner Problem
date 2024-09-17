@@ -1,0 +1,49 @@
+import random
+class Environment:
+    def __init__(self, n, m):
+        self.n = n  
+        self.m = m  
+        self.grid = [[random.choice([0, 1]) for _ in range(m)] for _ in range(n)]
+    def is_dirty(self, x, y):
+        return self.grid[x][y] == 1
+    def clean(self, x, y):
+        self.grid[x][y] = 0
+    def print_grid(self):
+        for row in self.grid:
+            print(row)
+        print("\n")
+class VacuumCleaner:
+    def __init__(self, environment):
+        self.env = environment
+        self.x = 0  
+        self.y = 0  
+    def move(self, direction):
+        if direction == "up" and self.x > 0:
+            self.x -= 1
+        elif direction == "down" and self.x < self.env.n - 1:
+            self.x += 1
+        elif direction == "left" and self.y > 0:
+            self.y -= 1
+        elif direction == "right" and self.y < self.env.m - 1:
+            self.y += 1
+    def clean(self):
+        if self.env.is_dirty(self.x, self.y):
+            print(f"Cleaning cell ({self.x}, {self.y})")
+            self.env.clean(self.x, self.y)
+        else:
+            print(f"Cell ({self.x}, {self.y}) is already clean")
+    def run(self):
+        moves = ["up", "down", "left", "right"]
+        for _ in range(100): 
+            self.clean()
+            move = random.choice(moves)
+            print(f"Moving {move} from ({self.x}, {self.y})")
+            self.move(move)
+            self.env.print_grid()
+def vacuum_cleaner_problem():
+    environment = Environment(5, 5)
+    print("Initial Environment:")
+    environment.print_grid()
+    vacuum = VacuumCleaner(environment)
+    vacuum.run()
+vacuum_cleaner_problem()
