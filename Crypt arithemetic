@@ -1,0 +1,26 @@
+import itertools
+def is_valid_solution(letters, values, words):
+    letter_to_digit = dict(zip(letters, values))
+    for word in words:
+        if letter_to_digit[word[0]] == 0:
+            return False
+    nums = [sum(letter_to_digit[letter] * (10 ** i) for i, letter in enumerate(word[::-1])) for word in words]
+    return sum(nums[:-1]) == nums[-1]
+def solve_cryptarithmetic(words):
+    letters = set(''.join(words))
+    if len(letters) > 10:
+        print("Too many letters for unique digits!")
+        return
+    letters = list(letters)
+    for perm in itertools.permutations(range(10), len(letters)):
+        if is_valid_solution(letters, perm, words):
+            letter_to_digit = dict(zip(letters, perm))
+            print("Solution found!")
+            for word in words:
+                print(f"{word}: {''.join(str(letter_to_digit[letter]) for letter in word)}")
+            return letter_to_digit
+
+    print("No solution found.")
+    return None
+words = ['SEND', 'MORE', 'MONEY']
+solve_cryptarithmetic(words)
