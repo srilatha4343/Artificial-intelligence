@@ -1,0 +1,26 @@
+import itertools
+def calculate_total_distance(route, distance_matrix):
+    total_distance = 0
+    n = len(route)
+    for i in range(n):
+        total_distance += distance_matrix[route[i]][route[(i+1) % n]] 
+    return total_distance
+def tsp_bruteforce(distance_matrix):
+    cities = list(range(len(distance_matrix)))  
+    shortest_route = None
+    min_distance = float('inf')
+    for route in itertools.permutations(cities):
+        total_distance = calculate_total_distance(route, distance_matrix)
+        if total_distance < min_distance:
+            min_distance = total_distance
+            shortest_route = route
+    return shortest_route, min_distance
+distance_matrix = [
+    [0, 29, 20, 21],
+    [29, 0, 15, 17],
+    [20, 15, 0, 28],
+    [21, 17, 28, 0]
+]
+shortest_route, min_distance = tsp_bruteforce(distance_matrix)
+print("Shortest route:", shortest_route)
+print("Minimum distance:", min_distance)
