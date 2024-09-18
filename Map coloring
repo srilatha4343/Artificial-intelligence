@@ -1,0 +1,37 @@
+def is_valid(graph, node, color, color_assignment):
+    for neighbor in graph[node]:
+        if color_assignment[neighbor] == color:
+            return False
+    return True
+def map_coloring(graph, colors, color_assignment, node):
+    if node == len(graph):
+        return True
+    node_name = list(graph.keys())[node]
+    for color in colors:
+        if is_valid(graph, node_name, color, color_assignment):
+            color_assignment[node_name] = color
+            if map_coloring(graph, colors, color_assignment, node + 1):
+                return True
+            color_assignment[node_name] = None   
+    return False
+def solve_map_coloring(graph, colors):
+    color_assignment = {node: None for node in graph}
+    if map_coloring(graph, colors, color_assignment, 0):
+        return color_assignment
+    else:
+        return None
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D', 'E'],
+    'D': ['B', 'C', 'E'],
+    'E': ['C', 'D']
+}
+colors = ['Red', 'Green', 'Blue']
+solution = solve_map_coloring(graph, colors)
+if solution:
+    print("Solution found:")
+    for region, color in solution.items():
+        print(f"Region {region} => {color}")
+else:
+    print("No solution found.")
