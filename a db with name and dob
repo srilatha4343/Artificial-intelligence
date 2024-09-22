@@ -1,0 +1,16 @@
+% Facts representing the name and date of birth of individuals
+% dob(Name, Day, Month, Year).
+
+dob('John Doe', 15, april, 1990).
+dob('Jane Smith', 23, august, 1985).
+dob('Alice Johnson', 10, december, 2000).
+dob('Bob Brown', 5, june, 1995).
+dob('Charlie Lee', 17, february, 1998).
+
+% Rule to find a person's date of birth by their name
+find_dob_by_name(Name, Day, Month, Year) :-
+    dob(Name, Day, Month, Year).
+
+% Rule to find a person's name by their date of birth
+find_name_by_dob(Day, Month, Year, Name) :-
+    dob(Name, Day, Month, Year).
