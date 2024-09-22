@@ -1,0 +1,50 @@
+% Facts: Symptoms for different diseases
+symptom(cold, sneezing).
+symptom(cold, cough).
+symptom(cold, runny_nose).
+
+symptom(flu, fever).
+symptom(flu, cough).
+symptom(flu, body_ache).
+
+symptom(covid, fever).
+symptom(covid, cough).
+symptom(covid, difficulty_breathing).
+symptom(covid, loss_of_smell_taste).
+
+symptom(malaria, fever).
+symptom(malaria, chills).
+symptom(malaria, sweating).
+
+% Disease diagnosis rules using backward chaining
+disease(cold) :-
+    symptom(cold, Symptom),
+    verify(Symptom).
+
+disease(flu) :-
+    symptom(flu, Symptom),
+    verify(Symptom).
+
+disease(covid) :-
+    symptom(covid, Symptom),
+    verify(Symptom).
+
+disease(malaria) :-
+    symptom(malaria, Symptom),
+    verify(Symptom).
+
+% Query to ask user if they have a particular symptom
+verify(Symptom) :-
+    format('Do you have ~w? (yes/no): ', [Symptom]),
+    read(Reply),
+    Reply == yes.
+
+% Main query to start diagnosis
+diagnose :-
+    disease(Disease),
+    format('You may have ~w.~n', [Disease]),
+    !.
+
+% Fallback if no disease is diagnosed
+diagnose :-
+    write('No diagnosis could be made.').
