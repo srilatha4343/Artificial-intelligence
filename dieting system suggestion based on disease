@@ -1,0 +1,19 @@
+% Facts about diseases and their dietary recommendations
+% diet(Disease, Recommendation).
+diet(diabetes, 'Eat low glycemic index foods, limit sugar intake, and increase fiber.').
+diet(hypertension, 'Reduce sodium intake, eat more fruits and vegetables, and limit processed foods.').
+diet(high_cholesterol, 'Avoid saturated fats, eat more omega-3 fatty acids, and increase fiber.').
+diet(obesity, 'Reduce portion sizes, eat more whole foods, and increase physical activity.').
+diet(celiac_disease, 'Avoid gluten, eat gluten-free grains, and increase fruits and vegetables.').
+
+% Rule to suggest diet based on disease
+suggest_diet(Disease, Recommendation) :-
+    diet(Disease, Recommendation).
+
+% To print all diets
+print_all_diets :-
+    diet(Disease, Recommendation),
+    format('For ~w: ~w~n', [Disease, Recommendation]),
+    fail. % Forces backtracking to find all matches
+print_all_diets.
+
