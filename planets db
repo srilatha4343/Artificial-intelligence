@@ -1,0 +1,34 @@
+% Facts about planets
+% planet(Name, Type, Diameter_km, Distance_from_sun_km, Number_of_moons).
+
+planet(mercury, rocky, 4879, 57900000, 0).
+planet(venus, rocky, 12104, 108200000, 0).
+planet(earth, rocky, 12756, 149600000, 1).
+planet(mars, rocky, 6792, 227900000, 2).
+planet(jupiter, gas_giant, 142984, 778500000, 79).
+planet(saturn, gas_giant, 120536, 1433500000, 83).
+planet(uranus, ice_giant, 51118, 2872500000, 27).
+planet(neptune, ice_giant, 49528, 4495100000, 14).
+
+% Rule to find a planet by name
+find_planet(Name, Type, Diameter, Distance, Moons) :-
+    planet(Name, Type, Diameter, Distance, Moons).
+
+% Rule to find planets of a specific type (rocky or gas_giant or ice_giant)
+find_planets_by_type(Type, Name, Diameter, Distance, Moons) :-
+    planet(Name, Type, Diameter, Distance, Moons).
+
+% Rule to find planets with a specific number of moons
+find_planets_by_moons(NumberOfMoons, Name, Type, Diameter, Distance) :-
+    planet(Name, Type, Diameter, Distance, Moons),
+    Moons =:= NumberOfMoons.
+
+% Rule to find the largest planet
+largest_planet(Name, Diameter) :-
+    planet(Name, _, Diameter, _, _),
+    \+ (planet(_, _, OtherDiameter, _, _), OtherDiameter > Diameter).
+
+% Rule to find the closest planet to the Sun
+closest_planet(Name, Distance) :-
+    planet(Name, _, _, Distance, _),
+    \+ (planet(_, _, _, OtherDistance, _), OtherDistance < Distance).
