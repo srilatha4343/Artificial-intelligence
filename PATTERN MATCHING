@@ -1,0 +1,21 @@
+% Check if the list starts with a specific element
+match([H|_], H).
+
+% Check if the list has exactly two elements
+match([X, Y], pair(X, Y)).
+
+% Check if the list has three elements with a specific middle value
+match([_, Middle, _], middle(Middle)).
+
+% Check if a list starts and ends with the same element
+match([H|T], H) :-
+    last(T, H).
+
+% Check if a list contains a pattern in its tail
+match([_|T], Pattern) :-
+    match(T, Pattern).
+
+% Main query to test pattern matching
+match_pattern(List, Pattern) :-
+    match(List, Pattern),
+    format('The list ~w matches the pattern: ~w~n', [List, Pattern]).
