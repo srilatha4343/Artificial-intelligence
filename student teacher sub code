@@ -1,0 +1,44 @@
+% Facts about students and the subjects they are enrolled in.
+% student(StudentName, SubjectCode).
+
+student('Alice', cs101).
+student('Bob', cs102).
+student('Charlie', cs101).
+student('Diana', cs103).
+student('Eve', cs102).
+
+% Facts about teachers and the subjects they teach.
+% teacher(TeacherName, SubjectCode).
+
+teacher('Dr. Smith', cs101).
+teacher('Prof. Johnson', cs102).
+teacher('Dr. Brown', cs103).
+
+% Facts about subjects and their codes.
+% subject(SubjectCode, SubjectName).
+
+subject(cs101, 'Introduction to Computer Science').
+subject(cs102, 'Data Structures').
+subject(cs103, 'Algorithms').
+
+% Rule to find which teacher teaches a specific subject by subject code.
+find_teacher_by_subject_code(SubjectCode, TeacherName) :-
+    teacher(TeacherName, SubjectCode).
+
+% Rule to find which students are enrolled in a specific subject by subject code.
+find_students_by_subject_code(SubjectCode, StudentName) :-
+    student(StudentName, SubjectCode).
+
+% Rule to find the subject name using the subject code.
+find_subject_name_by_code(SubjectCode, SubjectName) :-
+    subject(SubjectCode, SubjectName).
+
+% Rule to find which subject a student is enrolled in by their name.
+find_subject_by_student(StudentName, SubjectCode, SubjectName) :-
+    student(StudentName, SubjectCode),
+    subject(SubjectCode, SubjectName).
+
+% Rule to find which teacher teaches a student.
+find_teacher_by_student(StudentName, TeacherName) :-
+    student(StudentName, SubjectCode),
+    teacher(TeacherName, SubjectCode).
