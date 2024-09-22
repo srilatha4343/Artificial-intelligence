@@ -1,0 +1,61 @@
+% Facts about family members
+% parent(Parent, Child).
+parent(john, mary).
+parent(john, james).
+parent(susan, mary).
+parent(susan, james).
+parent(mary, alice).
+parent(mary, bob).
+parent(james, charlie).
+
+% Define gender for additional queries
+% male(Name).
+male(john).
+male(james).
+male(bob).
+male(charlie).
+
+female(mary).
+female(susan).
+female(alice).
+
+% Rules to determine relationships
+
+% Check if A is a parent of B
+is_parent(A, B) :- parent(A, B).
+
+% Check if A is a sibling of B
+is_sibling(A, B) :-
+    parent(P, A), parent(P, B), A \= B.
+
+% Check if A is a grandparent of B
+is_grandparent(A, B) :-
+    parent(A, C), parent(C, B).
+
+% Check if A is a child of B
+is_child(A, B) :- parent(B, A).
+
+% Check if A is a male descendant of B
+is_male_descendant(A, B) :-
+    is_child(A, B), male(A).
+
+% Check if A is a female descendant of B
+is_female_descendant(A, B) :-
+    is_child(A, B), female(A).
+
+% To print family relationships
+print_relationships :-
+    is_parent(X, Y), format('~w is a parent of ~w~n', [X, Y]),
+    fail. % Forces backtracking to find all matches
+print_relationships.
+
+print_siblings :-
+    is_sibling(X, Y), format('~w is a sibling of ~w~n', [X, Y]),
+    fail.
+print_siblings.
+
+print_grandparents :-
+    is_grandparent(X, Y), format('~w is a grandparent of ~w~n', [X, Y]),
+    fail.
+print_grandparents.
+
