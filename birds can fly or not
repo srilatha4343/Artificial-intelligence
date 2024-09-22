@@ -1,0 +1,25 @@
+% Facts about birds and their flying ability
+% bird(Name, CanFly).
+bird(eagle, yes).
+bird(sparrow, yes).
+bird(penguin, no).
+bird(ostrich, no).
+bird(falcon, yes).
+bird(emperor_penguin, no).
+
+% Rule to check if a bird can fly
+can_fly(Bird) :-
+    bird(Bird, yes).
+
+% Rule to check if a bird cannot fly
+cannot_fly(Bird) :-
+    bird(Bird, no).
+
+% Rule to print whether a bird can fly or not
+print_flying_ability(Bird) :-
+    (   can_fly(Bird) ->
+        format('The ~w can fly.~n', [Bird])
+    ;   cannot_fly(Bird) ->
+        format('The ~w cannot fly.~n', [Bird])
+    ;   format('The flying ability of ~w is unknown.~n', [Bird])
+    ).
