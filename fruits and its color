@@ -1,0 +1,24 @@
+% Facts about fruits and their colors
+% fruit(Fruit, Color).
+fruit(apple, red).
+fruit(banana, yellow).
+fruit(orange, orange).
+fruit(grape, purple).
+fruit(lemon, yellow).
+fruit(kiwi, green).
+fruit(watermelon, green).
+
+% Rule to find the color of a fruit
+find_color(Fruit, Color) :-
+    fruit(Fruit, Color).
+
+% Rule to find all fruits of a specific color
+find_fruits_by_color(Color, Fruit) :-
+    fruit(Fruit, Color).
+
+% To print all fruits and their colors
+print_all_fruits :-
+    fruit(Fruit, Color),
+    format('~w is ~w.~n', [Fruit, Color]),
+    fail. % Forces backtracking to find all matches
+print_all_fruits.
