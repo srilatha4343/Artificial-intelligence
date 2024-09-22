@@ -1,0 +1,20 @@
+% Define vowels
+vowel(a).
+vowel(e).
+vowel(i).
+vowel(o).
+vowel(u).
+
+% Base case: An empty list has 0 vowels
+count_vowels([], 0).
+
+% Recursive case: If the head of the list is a vowel, increment the count
+count_vowels([H|T], Count) :-
+    vowel(H),            % Check if H is a vowel
+    count_vowels(T, C),  % Count vowels in the rest of the list
+    Count is C + 1.      % Add 1 for the current vowel
+
+% Recursive case: If the head is not a vowel, proceed without incrementing the count
+count_vowels([H|T], Count) :-
+    \+ vowel(H),         % Check if H is not a vowel
+    count_vowels(T, Count).  % Continue checking the rest of the list
