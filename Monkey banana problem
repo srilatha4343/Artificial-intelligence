@@ -1,0 +1,22 @@
+
+initial_state(state(on_floor, no_banana)).
+
+
+move(state(on_floor, no_banana), climb, state(on_box, no_banana)).
+
+
+move(state(on_box, no_banana), grab, state(on_box, has_banana)).
+
+
+solve(state(_, has_banana)) :-
+    write('Banana grabbed!'), nl.
+
+solve(State) :-
+    move(State, Action, NewState),
+    write('Action: '), write(Action), nl,
+    solve(NewState).
+
+
+start :-
+    initial_state(State),
+    solve(State).
