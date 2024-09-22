@@ -1,0 +1,58 @@
+% Allow dynamic modification of facts
+:- dynamic fact/1.
+
+% Allow non-contiguous clauses for 'fact', 'if', and 'forward_chain'
+:- discontiguous fact/1.
+:- discontiguous if/2.
+:- discontiguous forward_chain/0.
+
+% Initial facts
+fact(weather_is_good).
+fact(has_car).
+fact(has_fuel).
+
+% Rules
+if(weather_is_good, go_outside).
+if(has_car, can_drive).
+if(has_fuel, car_can_run).
+if(car_can_run, go_to_work).
+
+% Forward chaining logic
+forward_chain :-
+    % Apply the rule for going outside if the weather is good
+    fact(weather_is_good),
+    assertz(fact(go_outside)),
+    write('Rule Applied: Weather is good, so go outside.'), nl,
+
+    % Apply the rule for driving if the person has a car
+    fact(has_car),
+    assertz(fact(can_drive)),
+    write('Rule Applied: Has car, so can drive.'), nl,
+
+    % Apply the rule for the car running if it has fuel
+    fact(has_fuel),
+    assertz(fact(car_can_run)),
+    write('Rule Applied: Has fuel, so the car can run.'), nl,
+
+    % Apply the rule for going to work if the car can run
+    fact(car_can_run),
+    assertz(fact(go_to_work)),
+    write('Rule Applied: Car can run, so go to work.'), nl.
+
+% Query to check if we can go to work based on the derived facts
+can_go_to_work :-
+    fact(go_to_work),
+    write('Conclusion: Can go to work!').
+
+% Query to check if we can go outside
+can_go_outside :-
+    fact(go_outside),
+    write('Conclusion: Can go outside!').
+
+% Clearing all the derived facts
+reset_facts :-
+    retractall(fact(go_outside)),
+    retractall(fact(can_drive)),
+    retractall(fact(car_can_run)),
+    retractall(fact(go_to_work)),
+    write('All derived facts cleared.').
