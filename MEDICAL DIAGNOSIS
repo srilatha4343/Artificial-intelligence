@@ -1,0 +1,46 @@
+% Symptoms for various diseases
+symptom(cold, fever).
+symptom(cold, cough).
+symptom(cold, sneezing).
+symptom(flu, fever).
+symptom(flu, headache).
+symptom(flu, body_ache).
+symptom(flu, cough).
+symptom(covid, fever).
+symptom(covid, cough).
+symptom(covid, difficulty_breathing).
+symptom(covid, loss_of_smell_taste).
+symptom(malaria, fever).
+symptom(malaria, chills).
+symptom(malaria, sweating).
+
+% Diagnosis based on symptoms
+diagnosis(Disease) :-
+    symptom(Disease, fever),
+    symptom(Disease, cough),
+    symptom(Disease, headache),
+    Disease = flu.
+
+diagnosis(Disease) :-
+    symptom(Disease, fever),
+    symptom(Disease, cough),
+    symptom(Disease, difficulty_breathing),
+    Disease = covid.
+
+diagnosis(Disease) :-
+    symptom(Disease, fever),
+    symptom(Disease, sneezing),
+    symptom(Disease, cough),
+    Disease = cold.
+
+diagnosis(Disease) :-
+    symptom(Disease, fever),
+    symptom(Disease, chills),
+    symptom(Disease, sweating),
+    Disease = malaria.
+
+% Query to find the disease
+find_disease(SymptomsList, Disease) :-
+    symptom(Disease, Symptom),
+    member(Symptom, SymptomsList),
+    diagnosis(Disease).
