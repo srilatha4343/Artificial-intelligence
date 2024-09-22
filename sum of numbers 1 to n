@@ -1,0 +1,9 @@
+% Base case: the sum of numbers from 1 to 0 is 0.
+sumton(0, 0).
+
+% Recursive case: the sum of numbers from 1 to N is N + sum of numbers from 1 to N-1.
+sumton(N, Sum) :-
+    N > 0,
+    N1 is N - 1,
+    sumton(N1, Sum1),
+    Sum is N + Sum1.
