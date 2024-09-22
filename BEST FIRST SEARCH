@@ -1,0 +1,42 @@
+:- use_module(library(lists)).
+
+% Define the graph as edges with their corresponding costs
+edge(a, b, 1).
+edge(a, c, 4).
+edge(b, d, 2).
+edge(b, e, 5).
+edge(c, e, 3).
+edge(d, g, 1).
+edge(e, g, 2).
+
+% Define heuristic values for the goal
+heuristic(g, 0).  % Goal node
+heuristic(a, 7).
+heuristic(b, 6).
+heuristic(c, 2).
+heuristic(d, 1).
+heuristic(e, 1).
+
+% Best First Search algorithm
+best_first_search(Start, Goal, Path, Cost) :-
+    best_first_search([[Start]], Goal, PathRev, Cost),
+    reverse(PathRev, Path).
+
+best_first_search([[Goal | Path] | _], Goal, [Goal | Path], 0).
+
+best_first_search([CurrentPath | Paths], Goal, FinalPath, Cost) :-
+    CurrentPath = [Current | _],
+    findall([Next, Current | CurrentPath],
+            (edge(Current, Next, EdgeCost),
+             \+ member(Next, CurrentPath)),  % Avoid cycles
+            NewPaths),
+    map_list_to_pairs(heuristic_cost(Goal), NewPaths, Pairs),
+    keysort(Pairs, SortedPairs),
+    pairs_values(SortedPairs, SortedPaths),
+    append(SortedPaths, Paths, UpdatedPaths),
+    best_first_search(UpdatedPaths, Goal, FinalPath, Cost).
+
+% Heuristic cost function
+heuristic_cost(Goal, [Next, Current | Path], Cost-Next) :-
+    heuristic(Next, HNext),
+    Cost is HNext.  % Cost is based on heuristic only
