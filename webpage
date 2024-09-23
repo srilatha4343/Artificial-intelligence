@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student and Teacher Information</title>
+    <style>
+        /* Background color for the entire webpage */
+        body {
+            background-color: #71a4d7; /* Light blue background */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Styling the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #c2b2bb;
+            color: white;
+        }
+
+        /* Anchor link styling */
+        a {
+            color: hwb(357 7% 11%);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Image styling */
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        /* Title Styling */
+        h1 {
+            text-align: center;
+            color: #30f50e;
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Title -->
+    <h1>Student and Teacher Information Page</h1>
+
+    <!-- Anchor Tag -->
+    <p>Click <a href="https://www.example.com" target="_blank">here</a> to visit Example.com for more information.</p>
+
+    <!-- Table with student and teacher data -->
+    <table>
+        <tr>
+            <th>Role</th>
+            <th>Name</th>
+            <th>Profile Picture</th>
+            <th>Subject/Grade</th>
+        </tr>
+        <tr>
+            <td>Teacher</td>
+            <td>John Smith</td>
+            <td><img src="https://www.example.com/john-smith.jpg" alt="John Smith" class="profile-pic"></td>
+            <td>Mathematics</td>
+        </tr>
+        <tr>
+            <td>Student</td>
+            <td>Emily Johnson</td>
+            <td><img src="https://www.example.com/emily-johnson.jpg" alt="Emily Johnson" class="profile-pic"></td>
+            <td>Grade 10</td>
+        </tr>
+        <tr>
+            <td>Teacher</td>
+            <td>Jane Doe</td>
+            <td><img src="https://www.example.com/jane-doe.jpg" alt="Jane Doe" class="profile-pic"></td>
+            <td>History</td>
+        </tr>
+        <tr>
+            <td>Student</td>
+            <td>Michael Lee</td>
+            <td><img src="https://www.example.com/michael-lee.jpg" alt="Michael Lee" class="profile-pic"></td>
+            <td>Grade 11</td>
+        </tr>
+    </table>
+
+    <!-- Another anchor link -->
+    <p>For more details about the school, visit the <a href="https://www.schoolwebsite.com" target="_blank">School Website</a>.</p>
+</body>
+</html>
